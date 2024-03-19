@@ -24,4 +24,10 @@ public class ReservationController {
         return reservationService.getAllReservations();
     }
 
+    //all reservation accepted
+    @GetMapping("/accepted")
+    public List<Reservation> getAcceptedReservations() {
+        return reservationService.getAcceptedReservations();
+    }
+
 }

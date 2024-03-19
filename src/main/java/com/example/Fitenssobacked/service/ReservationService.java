@@ -20,4 +20,9 @@ public class ReservationService {
     public List<Reservation> getAllReservations() {
         return reservationRepository.findAll();
     }
+
+    //all reservation accepted
+    public List<Reservation> getAcceptedReservations() {
+        return reservationRepository.findByIsPurchasedTrue();
+    }
 }
