@@ -6,9 +6,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AccountDtos {
+public class AccountTypeDto {
     private Long id;
-    private String login;
-    private String password;
-    private Long accountType;
+
+    private String name;
 }

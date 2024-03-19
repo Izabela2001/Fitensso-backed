@@ -4,6 +4,7 @@ import com.example.Fitenssobacked.dtos.SignUpDto;
 import com.example.Fitenssobacked.dtos.UserDto;
 import com.example.Fitenssobacked.model.User;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import org.mapstruct.Mapper;
@@ -20,5 +21,6 @@ public interface UserMapper {
 
     @Mapping(target = "password", ignore = true)
     User signUpToUser(SignUpDto signUpDto);
+
 
 }

@@ -35,6 +35,12 @@ public class User implements UserDetails {
 
 
 
+    @PrePersist
+    public void prePersist() {
+        if (accountType == null) {
+            accountType = new AccountType(1L, "Customer");
+        }
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(accountType.getName()));
@@ -64,5 +70,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 
 }

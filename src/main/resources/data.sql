@@ -1,4 +1,4 @@
-INSERT INTO account_types (name_type) VALUES
+INSERT INTO account_type (name_type) VALUES
    ('customer'),
     ('admin'),
     ('worker');

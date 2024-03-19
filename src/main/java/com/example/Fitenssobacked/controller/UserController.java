@@ -2,6 +2,7 @@ package com.example.Fitenssobacked.controller;
 
 import com.example.Fitenssobacked.config.AuthenticationRequest;
 import com.example.Fitenssobacked.config.AuthenticationResponse;
+import com.example.Fitenssobacked.dtos.SignUpDto;
 import com.example.Fitenssobacked.dtos.UserDto;
 import com.example.Fitenssobacked.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,18 @@ public class UserController {
     public ResponseEntity<UserDto> getUserDetails(@PathVariable long id) {
         UserDto user = userService.findById(id);
         return ResponseEntity.ok(user);
+    }
+    //add employer
+    @PostMapping("/addEmployee")
+    public ResponseEntity<UserDto> addEmployee(@RequestBody SignUpDto signUpDto){
+        UserDto newEmployee = userService.addEmployee(signUpDto);
+        return ResponseEntity.ok(newEmployee);
+    }
+    //update user
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable long id, @RequestBody UserDto userDto) {
+        UserDto updatedUser = userService.updateUser(id, userDto);
+        return ResponseEntity.ok(updatedUser);
     }
 
 
