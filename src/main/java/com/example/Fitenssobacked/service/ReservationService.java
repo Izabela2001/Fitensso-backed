@@ -30,4 +30,8 @@ public class ReservationService {
     public List<Reservation> getNotAcceptedReservations(){
         return reservationRepository.findByIsPurchasedFalse();
     }
+    //all reservation user accepted
+    public List<Reservation> getAcceptedReservationsByUserId(Long userId) {
+        return reservationRepository.findByUserIdAndIsPurchasedTrue(userId);
+    }
 }

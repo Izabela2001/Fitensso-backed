@@ -5,9 +5,11 @@ import com.example.Fitenssobacked.dtos.CredentialsDto;
 import com.example.Fitenssobacked.dtos.SignUpDto;
 import com.example.Fitenssobacked.dtos.UserDto;
 import com.example.Fitenssobacked.model.AccountType;
+import com.example.Fitenssobacked.model.Reservation;
 import com.example.Fitenssobacked.model.User;
 import com.example.Fitenssobacked.exception.AppException;
 import com.example.Fitenssobacked.repository.AccountTypeRepository;
+import com.example.Fitenssobacked.repository.ReservationRepository;
 import com.example.Fitenssobacked.repository.UserRepository;
 import com.example.Fitenssobacked.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
-    private final AccountTypeRepository accountTypeRepository;
+
 
 
     public UserDto register(SignUpDto signUpDto) {
@@ -125,6 +127,9 @@ public class UserService {
         User updatedUser = userRepository.save(existingUser);
         return userMapper.toUserDto(updatedUser);
     }
+
+
+
 
 }
 
