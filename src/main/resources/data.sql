@@ -15,7 +15,7 @@ VALUES
     ('Olga', 'Sadokierska', 'Olga@wp.pl', 'Olga', '$2a$10$1IBxHrDWJFQB0MW9L/1cN.VxDgnZwfxI.OGADl0QBtEeUa4ZAWsHi', '147852369', 1),
     ('Iza', 'Najder', 'iza@wp.pl', 'Iza', '$2a$10$qEM4jofX2wYJTT.rljTq.ekftbquXLSLz.PojwnFtPMUngzUW9eDi', '123456789', 1),
     ('Jan', 'Kowalski', 'jan.kowalski@gamil.com', 'jan.kowalski', '$2a$10$sB4twg9dtgQTd9hcfWnQtOG8k3YIWdPTRqqBW5lmZz54VAMwI6Yhy', '123456789', 2),
-    ('Anna', 'Nowak', 'anna.nowak@gamil.com', 'anna.nowak', '$2a$10$Zg0qtxfWdutZYiF1U0/XD.ZLLWvLkve7rqqR/X.rNSOcWCMiWMd5y', '987654321', 2),
+    ('Anna', 'Nowak', 'anna.nowak@gamil.com', 'anna.nowak', '$2a$10$Zg0qtxfWdutZYiF1U0/XD.ZLLWvLkve7rqqR/X.rNSOcWCMiWMd5y', '987654321', 3),
     ('Piotr', 'Wiśniewski', 'piotr.wisniewski@gmail.com', 'piotr.wisniewski', '$2a$10$SDoaS8RTb2IB/YMcqtGzpO0Cw7/peLUWIu7iQLCUUgGXWkIk8PL4O', '555666777', 2),
     ('Alicja', 'Dąbrowska', 'alicja.dabrowska@gmail.com', 'alicja.dabrowska', '$2a$10$.gbjkNegdLvsxsrajWmh/u9NHZOikM0hMIcErck2PclvaPHBjbXuC', '999888777', 2),
     ('Marcin', 'Lewandowski', 'marcin.lewandowski@gmail.com', 'marcin.lewandowski', '$2a$10$yYdPrJNY5DUFLtGY2oqXnOEoSaWusg90xQnDOE0W9MzlOX54UQeNS', '111223344', 2),
