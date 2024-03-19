@@ -2,6 +2,7 @@ package com.example.Fitenssobacked.controller;
 
 import com.example.Fitenssobacked.config.AuthenticationRequest;
 import com.example.Fitenssobacked.config.AuthenticationResponse;
+import com.example.Fitenssobacked.dtos.SignUpDto;
 import com.example.Fitenssobacked.dtos.UserDto;
 import com.example.Fitenssobacked.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,5 @@ public class UserController {
         UserDto user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
-
 
 }

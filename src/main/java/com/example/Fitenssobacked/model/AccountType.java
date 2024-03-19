@@ -1,13 +1,15 @@
 package com.example.Fitenssobacked.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Entity
+@Table(name = "account_type")
+@Data
 @Getter
 @Setter
-@Entity
-@Table(name="account_types")
+@AllArgsConstructor
+@NoArgsConstructor
 public class AccountType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,4 +17,6 @@ public class AccountType {
 
     @Column(name = "name_type")
     private String name;
+
+
 }
