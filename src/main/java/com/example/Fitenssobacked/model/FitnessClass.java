@@ -24,6 +24,6 @@ public class FitnessClass {
     private Integer maxPlace;
 
     @ManyToOne
-    @JoinColumn(name = "id_account")
-    private  Account account;
+    @JoinColumn(name = "user_id")
+    private  User user;
 }
