@@ -47,5 +47,11 @@ public class UserController {
         UserDto user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
+    //add employer
+    @PostMapping("/addEmployee")
+    public ResponseEntity<UserDto> addEmployee(@RequestBody SignUpDto signUpDto){
+        UserDto newEmployee = userService.addEmployee(signUpDto);
+        return ResponseEntity.ok(newEmployee);
+    }
 
 }

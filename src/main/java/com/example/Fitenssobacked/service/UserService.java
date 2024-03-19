@@ -85,6 +85,16 @@ public class UserService {
         return userData;
     }
 
+    //add employee
+    @Transactional
+    public UserDto addEmployee(SignUpDto signUpDto){
+        User employee = userMapper.signUpToUser(signUpDto);
+        employee.setAccountType(new AccountType(3l,"Employee"));
+        String endocdePassword = passwordEncoder.encode(signUpDto.getPassword());
+        employee.setPassword(endocdePassword);
+        User saveEmployee = userRepository.save(employee);
+        return userMapper.toUserDto(saveEmployee);
+    }
 }
 
 
