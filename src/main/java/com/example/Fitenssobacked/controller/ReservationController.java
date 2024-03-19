@@ -30,4 +30,9 @@ public class ReservationController {
         return reservationService.getAcceptedReservations();
     }
 
+    //all reservation not accepted
+    @GetMapping("/not-accepted")
+    public List<Reservation> getNotAcceptedReservations(){
+        return reservationService.getNotAcceptedReservations();
+    }
 }

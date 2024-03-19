@@ -25,4 +25,9 @@ public class ReservationService {
     public List<Reservation> getAcceptedReservations() {
         return reservationRepository.findByIsPurchasedTrue();
     }
+
+    //all reservation not accepted
+    public List<Reservation> getNotAcceptedReservations(){
+        return reservationRepository.findByIsPurchasedFalse();
+    }
 }
