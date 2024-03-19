@@ -18,8 +18,8 @@ public class Reservation {
     private LocalDateTime dataReservation;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
-    private  Account account;
+    @JoinColumn(name = "user_id")
+    private  User user;
     @ManyToOne
     @JoinColumn(name = "fitness_class_id")
     private  FitnessClass fitnessClass;

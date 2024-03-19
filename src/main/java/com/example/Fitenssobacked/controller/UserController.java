@@ -1,17 +1,51 @@
 package com.example.Fitenssobacked.controller;
 
+import com.example.Fitenssobacked.config.AuthenticationRequest;
+import com.example.Fitenssobacked.config.AuthenticationResponse;
+import com.example.Fitenssobacked.dtos.UserDto;
 import com.example.Fitenssobacked.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequiredArgsConstructor
+@RequestMapping("api/v1/users")
+@CrossOrigin(origins = "http://localhost:3000" )
 public class UserController {
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+
+
+    @GetMapping("/id/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
+        UserDto user = userService.findById(id);
+        return ResponseEntity.ok(user);
     }
+
+
+    @GetMapping("/by-email")
+    public ResponseEntity<Integer[]> getUserIdByEmail(@RequestParam("email") String email) {
+        Integer[] userId = userService.findUserDataByEmail(email);
+        return ResponseEntity.ok(userId);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        List<UserDto> employees = userService.findAllUsers();
+        return ResponseEntity.ok(employees);
+    }
+    @GetMapping("/{id}/details")
+    public ResponseEntity<UserDto> getUserDetails(@PathVariable long id) {
+        UserDto user = userService.findById(id);
+        return ResponseEntity.ok(user);
+    }
+
+
 }
