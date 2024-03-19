@@ -53,5 +53,12 @@ public class UserController {
         UserDto newEmployee = userService.addEmployee(signUpDto);
         return ResponseEntity.ok(newEmployee);
     }
+    //update user
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable long id, @RequestBody UserDto userDto) {
+        UserDto updatedUser = userService.updateUser(id, userDto);
+        return ResponseEntity.ok(updatedUser);
+    }
+
 
 }
