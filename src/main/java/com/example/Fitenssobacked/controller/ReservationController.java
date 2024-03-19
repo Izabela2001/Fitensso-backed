@@ -65,6 +65,20 @@ public class ReservationController {
             return new ResponseEntity<>("Reservation with ID " + reservationId + " not found.", HttpStatus.NOT_FOUND);
         }
     }
+ // accepted all reservation
+ @PutMapping("/accept/all")
+ public ResponseEntity<String> acceptAllReservations() {
+     List<Reservation> reservations = reservationService.getAllReservations();
 
+     if (!reservations.isEmpty()) {
+         for (Reservation reservation : reservations) {
+             reservation.setIsPurchased(true);
+             reservationService.saveReservation(reservation);
+         }
+         return new ResponseEntity<>("All reservations have been accepted.", HttpStatus.OK);
+     } else {
+         return new ResponseEntity<>("No reservations found.", HttpStatus.NOT_FOUND);
+     }
+ }
 
 }
