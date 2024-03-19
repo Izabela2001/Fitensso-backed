@@ -5,12 +5,11 @@ import com.example.Fitenssobacked.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.method.P;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/reservations")
@@ -45,4 +44,27 @@ public class ReservationController {
         List<Reservation> reservations = reservationService.getAcceptedReservationsByUserId(userId);
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
+    //all reservation user not_accpeted
+    @GetMapping("/user/{userId}/not-accepted")
+    public ResponseEntity<List<Reservation>> getNotAcceptedReservationByUserId(@PathVariable Long userId){
+        List<Reservation> reservations = reservationService.getNotAcceptedReservationByUserId(userId);
+        return new ResponseEntity<>(reservations,HttpStatus.OK);
+    }
+    // accepted reservation
+    @PutMapping("/{reservationId}/accept")
+    public ResponseEntity<String> acceptReservation(@PathVariable Long reservationId) {
+        Optional<Reservation> optionalReservation = reservationService.getReservationById(reservationId);
+
+        if (optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
+            reservation.setIsPurchased(true);
+
+            reservationService.saveReservation(reservation);
+            return new ResponseEntity<>("Reservation with ID " + reservationId + " has been accepted.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Reservation with ID " + reservationId + " not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }

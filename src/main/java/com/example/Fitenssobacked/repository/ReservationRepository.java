@@ -11,4 +11,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findByIsPurchasedTrue();
     List<Reservation> findByIsPurchasedFalse();
     List<Reservation> findByUserIdAndIsPurchasedTrue(Long userId);
+    List<Reservation> findByUserIdAndIsPurchasedFalse(Long userId);
 }

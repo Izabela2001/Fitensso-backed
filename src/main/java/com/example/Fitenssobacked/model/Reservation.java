@@ -19,16 +19,17 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private  User user;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "fitness_class_id")
-    private  FitnessClass fitnessClass;
+    private FitnessClass fitnessClass;
 
     @Column(name = "is_accepted")
     private Boolean isPurchased;
 
-    public Reservation(){
+    public Reservation() {
         this.isPurchased = false;
     }
+
 
 }
