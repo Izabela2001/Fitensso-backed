@@ -52,4 +52,24 @@ public class FitnessClassController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    //UPDATE zajec
+    @PutMapping("/{id}/class")
+    public ResponseEntity<FitnessClassDto> updateFitnessClass(@PathVariable Long id, @RequestBody FitnessClassDto fitnessClassDto) {
+        FitnessClassDto updatedFitnessClass = fitnessClassService.updateFitnessClass(id, fitnessClassDto);
+        if (updatedFitnessClass != null) {
+            return ResponseEntity.ok(updatedFitnessClass);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    //usuwanie zajec
+    @DeleteMapping("/{id}/classsDelete")
+    public ResponseEntity<String> deleteFitnessClass(@PathVariable Long id) {
+        try {
+            fitnessClassService.deleteFitnessClass(id);
+            return ResponseEntity.ok("Fitness class deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete fitness class.");
+        }
+    }
 }

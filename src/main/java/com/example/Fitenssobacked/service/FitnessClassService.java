@@ -6,19 +6,24 @@ import com.example.Fitenssobacked.model.FitenssTypeClass;
 import com.example.Fitenssobacked.model.FitnessClass;
 import com.example.Fitenssobacked.model.User;
 import com.example.Fitenssobacked.repository.FitnessClassRepository;
+import com.example.Fitenssobacked.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class FitnessClassService {
     private final FitnessClassRepository fitnessClassRepository;
+    private final FitnessClassMapper fitnessClassMapper;
+    private final ReservationRepository reservationRepository;
 
 
     @Transactional
@@ -79,5 +84,31 @@ public class FitnessClassService {
                 .maxPlace(savedFitnessClass.getMaxPlace())
                 .user(savedFitnessClass.getUser().getId())
                 .build();
+    }
+    //update class
+    @Transactional
+    public FitnessClassDto updateFitnessClass(Long id, FitnessClassDto fitnessClassDto) {
+        Optional<FitnessClass> optionalFitnessClass = fitnessClassRepository.findById(id);
+        if (optionalFitnessClass.isPresent()) {
+            FitnessClass existingFitnessClass = optionalFitnessClass.get();
+            FitnessClass updatedFitnessClass = fitnessClassMapper.toEntity(fitnessClassDto);
+            BeanUtils.copyProperties(updatedFitnessClass, existingFitnessClass, "id");
+            FitnessClass savedFitnessClass = fitnessClassRepository.save(existingFitnessClass);
+            return fitnessClassMapper.toDto(savedFitnessClass);
+        } else {
+            return null;
+        }
+    }
+    //usuwanie zajce
+    @Transactional
+    public void deleteFitnessClass(Long fitnessClassId) {
+        // Sprawdź, czy istnieją rezerwacje związane z danymi zajęciami
+        boolean reservationsExist = reservationRepository.existsByFitnessClassId(fitnessClassId);
+        if (reservationsExist) {
+            // Jeśli tak, usuń rezerwacje
+            reservationRepository.deleteByFitnessClassId(fitnessClassId);
+        }
+        // Następnie usuń zajęcia
+        fitnessClassRepository.deleteById(fitnessClassId);
     }
 }
