@@ -1,16 +1,16 @@
 package com.example.Fitenssobacked.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "reservation")
+@AllArgsConstructor
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

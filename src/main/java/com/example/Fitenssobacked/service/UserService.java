@@ -66,18 +66,22 @@ public class UserService {
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
         if (passwordEncoder.matches(credentialsDto.getPassword(), user.getPassword())) {
-            return userMapper.toUserDto(user);
+            return userMapper.toUserDto(user) ;
+
         }
         throw new AppException("Invalid password", HttpStatus.BAD_REQUEST);
     }
 
-    @Transactional(readOnly = true)
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+
+    //wyswietlenie klientów
     public List<UserDto> findAllUsers() {
-        List<User> employees = userRepository.findAllUsers();
-        return userMapper.toUserDtoList(employees);
+        List<User> customer = userRepository.findAllUsers();
+        return userMapper.toUserDtoList(customer);
+    }
+    //wyświetlanie pracownikow
+    public List<UserDto> findAllEmployee(){
+        List<User> employee = userRepository.findAllEmployee();
+        return userMapper.toUserDtoList(employee);
     }
     @Transactional
     public Integer[] findUserDataByEmail(String email) {
