@@ -22,5 +22,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT user FROM User user WHERE user.accountType.id = 1")
     List<User> findAllUsers();
+
+    @Query("SELECT user FROM User user WHERE user.accountType.id = 3")
+    List<User>findAllEmployee();
     boolean existsByLogin(String login);
 }

@@ -1,7 +1,9 @@
 package com.example.Fitenssobacked.controller;
 
+import com.example.Fitenssobacked.model.FitnessClass;
 import com.example.Fitenssobacked.model.Reservation;
 import com.example.Fitenssobacked.service.ReservationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +14,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/reservations")
 public class ReservationController {
+
     private final ReservationService reservationService;
 
-    @Autowired
-    public ReservationController(ReservationService reservationService) {
-        this.reservationService = reservationService;
-    }
+
     //all reservation
     @GetMapping("/all")
     public List<Reservation> getAllReservations() {
@@ -65,20 +66,28 @@ public class ReservationController {
             return new ResponseEntity<>("Reservation with ID " + reservationId + " not found.", HttpStatus.NOT_FOUND);
         }
     }
- // accepted all reservation
- @PutMapping("/accept/all")
- public ResponseEntity<String> acceptAllReservations() {
-     List<Reservation> reservations = reservationService.getAllReservations();
+     // accepted all reservation
+     @PutMapping("/accept/all")
+     public ResponseEntity<String> acceptAllReservations() {
+         List<Reservation> reservations = reservationService.getAllReservations();
 
-     if (!reservations.isEmpty()) {
-         for (Reservation reservation : reservations) {
-             reservation.setIsPurchased(true);
-             reservationService.saveReservation(reservation);
+         if (!reservations.isEmpty()) {
+             for (Reservation reservation : reservations) {
+                 reservation.setIsPurchased(true);
+                 reservationService.saveReservation(reservation);
+             }
+             return new ResponseEntity<>("All reservations have been accepted.", HttpStatus.OK);
+         } else {
+             return new ResponseEntity<>("No reservations found.", HttpStatus.NOT_FOUND);
          }
-         return new ResponseEntity<>("All reservations have been accepted.", HttpStatus.OK);
-     } else {
-         return new ResponseEntity<>("No reservations found.", HttpStatus.NOT_FOUND);
      }
- }
-
+     // dodawanie nowej rezerwacji
+     @PostMapping("/add")
+     public ResponseEntity<String> addReservation(@RequestBody Long userId, @RequestParam Long fitnessClassId) {
+         if (userId != null && fitnessClassId != null) {
+             return reservationService.addReservation(userId, fitnessClassId);
+         } else {
+             return new ResponseEntity<>("Nieprawidłowe dane żądania.", HttpStatus.BAD_REQUEST);
+         }
+     }
 }

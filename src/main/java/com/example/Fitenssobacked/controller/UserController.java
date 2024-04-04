@@ -39,8 +39,14 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> employees = userService.findAllUsers();
-        return ResponseEntity.ok(employees);
+        List<UserDto> customer = userService.findAllUsers();
+        return ResponseEntity.ok(customer);
+    }
+
+    @GetMapping("/employee")
+    public ResponseEntity<List<UserDto>> findAllEmployee() {
+        List<UserDto> employee = userService.findAllEmployee();
+        return ResponseEntity.ok(employee);
     }
     @GetMapping("/{id}/details")
     public ResponseEntity<UserDto> getUserDetails(@PathVariable long id) {
