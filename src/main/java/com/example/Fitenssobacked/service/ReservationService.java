@@ -1,5 +1,6 @@
 package com.example.Fitenssobacked.service;
 
+import com.example.Fitenssobacked.dtos.ReservationDto;
 import com.example.Fitenssobacked.model.FitnessClass;
 import com.example.Fitenssobacked.model.Reservation;
 import com.example.Fitenssobacked.repository.FitnessClassRepository;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -59,7 +61,14 @@ public class ReservationService {
         return reservationRepository.findById(id);
     }
 
-    public ResponseEntity<String> addReservation(Long userId, Long fitnessClassId) {
+    public void deleteReservation(Long id) {
+        reservationRepository.deleteById(id);
+    }
+    // dodawanie reservacji
+    public ResponseEntity<String> addReservation(ReservationDto reservationDto) {
+        Long userId = reservationDto.getUser();
+        Long fitnessClassId = reservationDto.getFitnessClass();
+
         Optional<User> optionalUser = userRepository.findById(userId);
         Optional<FitnessClass> optionalFitnessClass = fitnessClassRepository.findById(fitnessClassId);
 
@@ -68,26 +77,26 @@ public class ReservationService {
             FitnessClass fitnessClass = optionalFitnessClass.get();
 
             if (fitnessClass.getActivePlace() < fitnessClass.getMaxPlace()) {
-                // Pobierz bieżącą datę i godzinę z serwera
                 LocalDateTime currentDateTime = LocalDateTime.now();
+                Reservation reservation = Reservation.builder()
+                        .dataReservation(currentDateTime)
+                        .user(user)
+                        .fitnessClass(fitnessClass)
+                        .isPurchased(false) // ustawienie isPurchased na false
+                        .build();
 
-                // Jeśli jest dostępne miejsce, zapisz rezerwację
-                Reservation reservation = new Reservation();
-                reservation.setUser(user);
-                reservation.setFitnessClass(fitnessClass);
-                reservation.setDataReservation(currentDateTime);
-                reservation.setIsPurchased(true);
+                // Zapisz rezerwację
                 reservationRepository.save(reservation);
+
                 return new ResponseEntity<>("Rezerwacja została dodana.", HttpStatus.OK);
             } else {
-                // Jeśli nie ma dostępnego miejsca, zwróć odpowiedni komunikat
                 return new ResponseEntity<>("Brak miejsc.", HttpStatus.BAD_REQUEST);
             }
         } else {
-            // Jeśli użytkownik lub zajęcia nie istnieją, zwróć odpowiedni komunikat
             return new ResponseEntity<>("Użytkownik lub zajęcia nie znalezione.", HttpStatus.NOT_FOUND);
         }
     }
+
 }
 
 
