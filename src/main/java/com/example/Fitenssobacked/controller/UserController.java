@@ -49,9 +49,9 @@ public class UserController {
         return ResponseEntity.ok(employee);
     }
     @GetMapping("/{id}/details")
-    public ResponseEntity<UserDto> getUserDetails(@PathVariable long id) {
-        UserDto user = userService.findById(id);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<UserDto> getUserDetails(@PathVariable Long id) {
+        UserDto userDetails = userService.findById(id);
+        return ResponseEntity.ok(userDetails);
     }
     //add employer
     @PostMapping("/addEmployee")
