@@ -44,6 +44,7 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(signUpDto.getPassword());
         user.setPassword(encodedPassword);
         User savedUser = userRepository.save(user);
+
         return userMapper.toUserDto(savedUser);
     }
 
@@ -57,8 +58,16 @@ public class UserService {
 
     public UserDto findById(long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new AppException("Unknown user", HttpStatus.NOT_FOUND));
-        return userMapper.toUserDto(user);
+                .orElseThrow(() -> new AppException("Nie znaleziono użytkownika o podanym id", HttpStatus.NOT_FOUND));
+
+        // Pobierz accountTypeId z encji User
+        Long accountTypeId = user.getAccountType() != null ? user.getAccountType().getId() : null;
+
+        // Utwórz UserDto i ustaw wszystkie właściwości
+        UserDto userDto = userMapper.toUserDto(user);
+        userDto.setAccountTypeId(accountTypeId); // Ustaw accountTypeId
+
+        return userDto;
     }
 
     public UserDto login(CredentialsDto credentialsDto) {
