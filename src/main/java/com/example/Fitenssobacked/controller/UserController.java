@@ -4,6 +4,8 @@ import com.example.Fitenssobacked.config.AuthenticationRequest;
 import com.example.Fitenssobacked.config.AuthenticationResponse;
 import com.example.Fitenssobacked.dtos.SignUpDto;
 import com.example.Fitenssobacked.dtos.UserDto;
+import com.example.Fitenssobacked.exception.AppException;
+import com.example.Fitenssobacked.model.FitnessClass;
 import com.example.Fitenssobacked.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +68,14 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable long id) {
+        try {
+            userService.deleteUserById(id);
+            return ResponseEntity.ok("User deleted successfully");
+        } catch (AppException e) {
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
+    }
 
 }
