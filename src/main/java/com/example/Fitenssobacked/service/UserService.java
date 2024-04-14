@@ -5,10 +5,12 @@ import com.example.Fitenssobacked.dtos.CredentialsDto;
 import com.example.Fitenssobacked.dtos.SignUpDto;
 import com.example.Fitenssobacked.dtos.UserDto;
 import com.example.Fitenssobacked.model.AccountType;
+import com.example.Fitenssobacked.model.FitnessClass;
 import com.example.Fitenssobacked.model.Reservation;
 import com.example.Fitenssobacked.model.User;
 import com.example.Fitenssobacked.exception.AppException;
 import com.example.Fitenssobacked.repository.AccountTypeRepository;
+import com.example.Fitenssobacked.repository.FitnessClassRepository;
 import com.example.Fitenssobacked.repository.ReservationRepository;
 import com.example.Fitenssobacked.repository.UserRepository;
 import com.example.Fitenssobacked.mapper.UserMapper;
@@ -32,6 +34,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ReservationRepository reservationRepository;
+    private final FitnessClassRepository fitnessClassRepository;
 
 
 
@@ -141,7 +145,26 @@ public class UserService {
         return userMapper.toUserDto(updatedUser);
     }
 
+    @Transactional
+    public void deleteUserById(long id) {
+        // Sprawdź, czy użytkownik istnieje
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException("User not found", HttpStatus.NOT_FOUND));
 
+        // Sprawdź, czy użytkownik ma przypisaną klasę fitness
+        List<FitnessClass> fitnessClasses = fitnessClassRepository.findByUser(user);
+        if (!fitnessClasses.isEmpty()) {
+            throw new AppException("User cannot be deleted because they are assigned to fitness classes", HttpStatus.BAD_REQUEST);
+        }
+
+        List<Reservation> reservations = reservationRepository.findByUser(user);
+        if (!reservations.isEmpty()) {
+            throw new AppException("User cannot be deleted because they have reservations", HttpStatus.BAD_REQUEST);
+        }
+
+        // Usuń użytkownika
+        userRepository.delete(user);
+    }
 
 
 }

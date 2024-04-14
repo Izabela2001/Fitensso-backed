@@ -1,6 +1,7 @@
 package com.example.Fitenssobacked.repository;
 
 import com.example.Fitenssobacked.model.FitnessClass;
+import com.example.Fitenssobacked.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -14,4 +15,5 @@ import java.util.Optional;
 @EnableJpaRepositories
 public interface FitnessClassRepository extends JpaRepository<FitnessClass, Long> {
     Optional<FitnessClass> findById(long id);
+    List<FitnessClass> findByUser(User user);
 }
