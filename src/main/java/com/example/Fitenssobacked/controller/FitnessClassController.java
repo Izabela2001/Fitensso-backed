@@ -62,7 +62,7 @@ public class FitnessClassController {
             return ResponseEntity.notFound().build();
         }
     }
-    //usuwanie zajec
+    //usuwanie
     @DeleteMapping("/{id}/classsDelete")
     public ResponseEntity<String> deleteFitnessClass(@PathVariable Long id) {
         try {
