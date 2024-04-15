@@ -1,4 +1,4 @@
-**Fitnesso Backend **
+**Fitnesso Backend**
 
 This repository contains the backend code for a Fitnesso Management System. The system allows for managing fitness classes, reservations, users, and employees.
 
