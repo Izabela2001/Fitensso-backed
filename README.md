@@ -2,6 +2,8 @@
 
 This repository contains the backend code for a Fitnesso Management System. The system allows for managing fitness classes, reservations, users, and employees.
 
+The frontend application for this Fitness Management System is located in a separate repository. -> https://github.com/olapp1/Fitnesso-frontend 
+
 **Technologies Used**
 
 * Java
