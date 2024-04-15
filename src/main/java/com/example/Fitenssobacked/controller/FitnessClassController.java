@@ -53,7 +53,7 @@ public class FitnessClassController {
         }
     }
     //UPDATE zajec
-    @PutMapping("/{classId}/class")
+    @PutMapping("/{id}/class")
     public ResponseEntity<FitnessClassDto> updateFitnessClass(@PathVariable Long id, @RequestBody FitnessClassDto fitnessClassDto) {
         FitnessClassDto updatedFitnessClass = fitnessClassService.updateFitnessClass(id, fitnessClassDto);
         if (updatedFitnessClass != null) {
@@ -63,7 +63,7 @@ public class FitnessClassController {
         }
     }
     //usuwanie zajec
-    @DeleteMapping("/{classId}/classsDelete")
+    @DeleteMapping("/{id}/classsDelete")
     public ResponseEntity<String> deleteFitnessClass(@PathVariable Long id) {
         try {
             fitnessClassService.deleteFitnessClass(id);
