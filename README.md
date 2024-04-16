@@ -11,7 +11,7 @@ The frontend application for this Fitness Management System is located in a sepa
 * Spring Security
 * Lombok
 * Hibernate
-* PostgreSQL
+  
 
 **Structure**
 The backend is structured into several components:
